@@ -55,16 +55,23 @@ class Edge(object):
 
 class WeightedEdge(Edge):
     def __init__(self, src, dest, total_distance, outdoor_distance):
-        pass  # TODO
+        Edge.__init__(self, src, dest)
+        if outdoor_distance > total_distance:
+            raise ValueError(
+                "outdoor_distance cannot be greater then total_distance"
+            )
+        self.total_distance = total_distance
+        self.outdoor_distance = outdoor_distance
 
     def get_total_distance(self):
-        pass  # TODO
+        return self.total_distance
 
     def get_outdoor_distance(self):
-        pass  # TODO
+        return self.outdoor_distance
 
     def __str__(self):
-        pass  # TODO
+        return '{}->{} ({}, {})'.format(self.src, self.dest,
+            self.total_distance, self.outdoor_distance)
 
 
 class Digraph(object):
@@ -90,13 +97,26 @@ class Digraph(object):
     def add_node(self, node):
         """Adds a Node object to the Digraph. Raises a ValueError if it is
         already in the graph."""
-        pass  # TODO
+        if node in self.nodes:
+            raise ValueError("duplicate node")
+        self.nodes.add(node)
 
     def add_edge(self, edge):
         """Adds an Edge or WeightedEdge instance to the Digraph. Raises a
         ValueError if either of the nodes associated with the edge is not
         in the  graph."""
-        pass  # TODO
+        src_node = edge.get_source()
+        dest_node = edge.get_destination()
+        if src_node not in self.nodes:
+            raise ValueError("source node not in graph")
+        elif dest_node not in self.nodes:
+            raise ValueError("destination node not in graph")
+
+        try:
+            self.edges[src_node].append(edge)
+        except KeyError:
+            self.edges[src_node] = []
+            self.edges[src_node].append(edge)
 
 
 # ================================================================
