@@ -64,6 +64,8 @@ def load_map(map_filename):
 
 # Problem 2c: Testing load_map
 # Include the lines used to test load_map below, but comment them out
+# test_digraph = load_map('test_load_map.txt')
+# print(test_digraph)
 
 
 #
