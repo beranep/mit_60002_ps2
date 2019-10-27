@@ -183,8 +183,16 @@ def directed_dfs(digraph, start, end, max_total_dist, max_dist_outdoors):
         If there exists no path that satisfies max_total_dist and
         max_dist_outdoors constraints, then raises a ValueError.
     """
-    # TODO
-    pass
+    if max_dist_outdoors > max_total_dist:
+        raise ValueError("max_dist_outdoors must not exceed max_total_dist")
+
+    shortest_path = get_best_path(digraph, start, end, path=[[], 0, 0],
+                                  max_dist_outdoors=max_dist_outdoors,
+                                  best_dist=max_total_dist, best_path=None)
+    if shortest_path is None:
+        raise ValueError("No path found.")
+    else:
+        return shortest_path[0]
 
 
 # ================================================================
