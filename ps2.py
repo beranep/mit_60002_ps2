@@ -21,9 +21,9 @@ from graph import Digraph, Node, WeightedEdge
 #
 # Answer:
 # Graph's nodes represent campus buildings. Graph's edges represent
-# total and outdoor distances between the building. Distances are
-# represented in file `mit_map.txt' as third and fourth number on each
-# line.
+# available paths and total and outdoor distances between the buildings.
+# Distances are represented in file `mit_map.txt' as third and fourth
+# number on each line.
 #
 
 
