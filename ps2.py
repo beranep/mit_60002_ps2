@@ -1,7 +1,7 @@
-# 6.0002 Problem Set 5
+# 6.0002 Problem Set 2
 # Graph optimization
 # Name: Petr Beranek
-# Collaborators:
+# Collaborators: Ravi Dayabhai (https://github.com/Per48edjes/MIT-60002-PS2/blob/master/ps2.py)
 # Time:
 
 #
