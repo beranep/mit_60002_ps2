@@ -117,8 +117,41 @@ def get_best_path(digraph, start, end, path, max_dist_outdoors, best_dist,
         If there exists no path that satisfies max_total_dist and
         max_dist_outdoors constraints, then return None.
     """
-    # TODO
-    pass
+    start_node = Node(start)
+    end_node = Node(end)
+    curr_path, total_dist, outdoor_dist = path
+    curr_path += [start]
+
+    # Check that start and end are valid nodes
+    if not digraph.has_node(start_node):
+        raise ValueError("start node not in graph")
+    elif not digraph.has_node(end_node):
+        raise ValueError("end node not in graph")
+
+    # Base Case: end node has been found
+    if start == end:
+        return (curr_path[:], total_dist)
+    # Recursive Case: search for end node in child nodes
+    else:
+        for edge in digraph.get_edges_for_node(start_node):
+            next_node = edge.get_destination()
+            if str(next_node) not in curr_path:  # avoid cycles
+                new_total_dist = total_dist + edge.get_total_distance()
+                new_outdoor_dist = outdoor_dist + edge.get_outdoor_distance()
+                if (new_total_dist <= best_dist) and (new_outdoor_dist <= max_dist_outdoors):
+                    ans = get_best_path(digraph,
+                                        start=str(next_node),
+                                        end=end,
+                                        path=[curr_path[:], new_total_dist, new_outdoor_dist],
+                                        max_dist_outdoors=max_dist_outdoors,
+                                        best_dist=best_dist,
+                                        best_path=best_path)
+                    if ans is not None:
+                        best_path, best_dist = ans
+        if best_path is None:
+            return None
+        else:
+            return (best_path, best_dist)
 
 
 # Problem 3c: Implement directed_dfs
